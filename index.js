@@ -27,6 +27,7 @@ async function run() {
     try {
         const postUserData = client.db('hairCut').collection('postUserData')
         const usersCollection = client.db('hairCut').collection('usersCollection')
+        const haircutservice = client.db('hairCut').collection('haircutservice')
 
         app.post('/post-user-data', async (req, res) => {
             const product = req.body
@@ -52,6 +53,13 @@ async function run() {
         app.get('/user', async (req, res) => {
             const query = {}
             const cursor = usersCollection.find(query)
+            const service = await cursor.toArray()
+            res.send(service)
+        })
+
+        app.get('/hair-service', async (req, res) => {
+            const query = {}
+            const cursor = haircutservice.find(query)
             const service = await cursor.toArray()
             res.send(service)
         })
